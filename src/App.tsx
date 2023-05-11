@@ -11,20 +11,22 @@ const options = {
   blue: BlueThing,
 };
 
+type OptionsEnum = keyof typeof options;
+
 const App: Component = () => {
-  const [selected, setSelected] = createSignal<"red" | "blue" | "green">("red");
+  const [selected, setSelected] = createSignal<OptionsEnum>("blue");
 
   return (
     <>
       <select
         value={selected()}
-        onInput={(e) => setSelected(e.currentTarget.value)}
+        onInput={(e) => setSelected(e.currentTarget.value as OptionsEnum)}
       >
         <For each={Object.keys(options)}>
           {(color) => <option value={color}>{color}</option>}
         </For>
       </select>
-      {/* @ts-ignore */}
+
       <Dynamic component={options[selected()]} />
     </>
   );
