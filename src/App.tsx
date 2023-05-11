@@ -1,4 +1,4 @@
-import { Component, For, createSignal } from "solid-js";
+import { Component, For, Index, createSignal } from "solid-js";
 
 const App: Component = () => {
   const [cats, setCats] = createSignal([
@@ -9,15 +9,15 @@ const App: Component = () => {
 
   return (
     <ul>
-      <For each={cats()}>
+      <Index each={cats()}>
         {(cat, i) => (
           <li>
             <a target="_blank" href={`https://youtube.com/watch?v=${cat.id}`}>
-              {i() + 1}: {cat.name}
+              {i + 1}: {cat.name}
             </a>
           </li>
         )}
-      </For>
+      </Index>
     </ul>
   );
 };
