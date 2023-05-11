@@ -1,26 +1,22 @@
 import { Component, createSignal, For } from "solid-js";
 import { Dynamic } from "solid-js/web";
 
-const RedThing = () => <strong style="color: red">Red Thing</strong>;
-const GreenThing = () => <strong style="color: green">Green Thing</strong>;
-const BlueThing = () => <strong style="color: blue">Blue Thing</strong>;
-
 const options = {
-  red: RedThing,
-  green: GreenThing,
-  blue: BlueThing,
+  red: () => <strong style="color: red">Red Thing</strong>,
+  green: () => <strong style="color: green">Green Thing</strong>,
+  blue: () => <strong style="color: blue">Blue Thing</strong>,
 };
 
-type OptionsEnum = keyof typeof options;
+type OptionsUnion = keyof typeof options;
 
 const App: Component = () => {
-  const [selected, setSelected] = createSignal<OptionsEnum>("blue");
+  const [selected, setSelected] = createSignal<OptionsUnion>("blue");
 
   return (
     <>
       <select
         value={selected()}
-        onInput={(e) => setSelected(e.currentTarget.value as OptionsEnum)}
+        onInput={(e) => setSelected(e.currentTarget.value as OptionsUnion)}
       >
         <For each={Object.keys(options)}>
           {(color) => <option value={color}>{color}</option>}
